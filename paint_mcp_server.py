@@ -11,6 +11,7 @@ import win32gui
 import win32con
 import time
 from win32api import GetSystemMetrics
+from logger import mcp_server_logger
 
 # instantiate an MCP server client
 mcp = FastMCP("Calculator")
@@ -18,113 +19,113 @@ mcp = FastMCP("Calculator")
 # DEFINE TOOLS
 
 #addition tool
-@mcp.tool()
+@mcp.tool()  
 def add(a: int, b: int) -> int:
     """Add two numbers"""
-    print("CALLED: add(a: int, b: int) -> int:")
+    mcp_server_logger.info("CALLED: add(a: int, b: int) -> int:")
     return int(a + b)
 
 @mcp.tool()
 def add_list(l: list) -> int:
     """Add all numbers in a list"""
-    print("CALLED: add(l: list) -> int:")
+    mcp_server_logger.info("CALLED: add(l: list) -> int:")
     return sum(l)
 
 # subtraction tool
 @mcp.tool()
 def subtract(a: int, b: int) -> int:
     """Subtract two numbers"""
-    print("CALLED: subtract(a: int, b: int) -> int:")
+    mcp_server_logger.info("CALLED: subtract(a: int, b: int) -> int:")
     return int(a - b)
 
 # multiplication tool
 @mcp.tool()
 def multiply(a: int, b: int) -> int:
     """Multiply two numbers"""
-    print("CALLED: multiply(a: int, b: int) -> int:")
+    mcp_server_logger.info("CALLED: multiply(a: int, b: int) -> int:")
     return int(a * b)
 
 #  division tool
 @mcp.tool() 
 def divide(a: int, b: int) -> float:
     """Divide two numbers"""
-    print("CALLED: divide(a: int, b: int) -> float:")
+    mcp_server_logger.info("CALLED: divide(a: int, b: int) -> float:")
     return float(a / b)
 
 # power tool
 @mcp.tool()
 def power(a: int, b: int) -> int:
     """Power of two numbers"""
-    print("CALLED: power(a: int, b: int) -> int:")
+    mcp_server_logger.info("CALLED: power(a: int, b: int) -> int:")
     return int(a ** b)
 
 # square root tool
 @mcp.tool()
 def sqrt(a: int) -> float:
     """Square root of a number"""
-    print("CALLED: sqrt(a: int) -> float:")
+    mcp_server_logger.info("CALLED: sqrt(a: int) -> float:")
     return float(a ** 0.5)
 
 # cube root tool
 @mcp.tool()
 def cbrt(a: int) -> float:
     """Cube root of a number"""
-    print("CALLED: cbrt(a: int) -> float:")
+    mcp_server_logger.info("CALLED: cbrt(a: int) -> float:")
     return float(a ** (1/3))
 
 # factorial tool
 @mcp.tool()
 def factorial(a: int) -> int:
     """factorial of a number"""
-    print("CALLED: factorial(a: int) -> int:")
+    mcp_server_logger.info("CALLED: factorial(a: int) -> int:")
     return int(math.factorial(a))
 
 # log tool
 @mcp.tool()
 def log(a: int) -> float:
     """log of a number"""
-    print("CALLED: log(a: int) -> float:")
+    mcp_server_logger.info("CALLED: log(a: int) -> float:")
     return float(math.log(a))
 
 # remainder tool
 @mcp.tool()
 def remainder(a: int, b: int) -> int:
     """remainder of two numbers divison"""
-    print("CALLED: remainder(a: int, b: int) -> int:")
+    mcp_server_logger.info("CALLED: remainder(a: int, b: int) -> int:")
     return int(a % b)
 
 # sin tool
 @mcp.tool()
 def sin(a: int) -> float:
     """sin of a number"""
-    print("CALLED: sin(a: int) -> float:")
+    mcp_server_logger.info("CALLED: sin(a: int) -> float:")
     return float(math.sin(a))
 
 # cos tool
 @mcp.tool()
 def cos(a: int) -> float:
     """cos of a number"""
-    print("CALLED: cos(a: int) -> float:")
+    mcp_server_logger.info("CALLED: cos(a: int) -> float:")
     return float(math.cos(a))
 
 # tan tool
 @mcp.tool()
 def tan(a: int) -> float:
     """tan of a number"""
-    print("CALLED: tan(a: int) -> float:")
+    mcp_server_logger.info("CALLED: tan(a: int) -> float:")
     return float(math.tan(a))
 
 # mine tool
 @mcp.tool()
 def mine(a: int, b: int) -> int:
     """special mining tool"""
-    print("CALLED: mine(a: int, b: int) -> int:")
+    mcp_server_logger.info("CALLED: mine(a: int, b: int) -> int:")
     return int(a - b - b)
 
 @mcp.tool()
 def create_thumbnail(image_path: str) -> Image:
     """Create a thumbnail from an image"""
-    print("CALLED: create_thumbnail(image_path: str) -> Image:")
+    mcp_server_logger.info("CALLED: create_thumbnail(image_path: str) -> Image:")
     img = PILImage.open(image_path)
     img.thumbnail((100, 100))
     return Image(data=img.tobytes(), format="png")
@@ -132,19 +133,19 @@ def create_thumbnail(image_path: str) -> Image:
 @mcp.tool()
 def strings_to_chars_to_int(string: str) -> list[int]:
     """Return the ASCII values of the characters in a word"""
-    print("CALLED: strings_to_chars_to_int(string: str) -> list[int]:")
+    mcp_server_logger.info("CALLED: strings_to_chars_to_int(string: str) -> list[int]:")
     return [int(ord(char)) for char in string]
 
 @mcp.tool()
 def int_list_to_exponential_sum(int_list: list) -> float:
     """Return sum of exponentials of numbers in a list"""
-    print("CALLED: int_list_to_exponential_sum(int_list: list) -> float:")
+    mcp_server_logger.info("CALLED: int_list_to_exponential_sum(int_list: list) -> float:")
     return sum(math.exp(i) for i in int_list)
 
 @mcp.tool()
 def fibonacci_numbers(n: int) -> list:
     """Return the first n Fibonacci Numbers"""
-    print("CALLED: fibonacci_numbers(n: int) -> list:")
+    mcp_server_logger.info("CALLED: fibonacci_numbers(n: int) -> list:")
     if n <= 0:
         return []
     fib_sequence = [0, 1]
@@ -202,7 +203,7 @@ async def draw_rectangle(x1: int, y1: int, x2: int, y2: int) -> dict:
         # print(canvas_rect)
         # Draw within canvas bounds
 
-        canvas.press_mouse_input(coords=(x1+607, y1+425))
+        canvas.press_mouse_input(coords=(x1, y1))
         time.sleep(1.9)
 
         # start = (canvas_rect.left + 607, canvas_rect.top + 425)
@@ -217,13 +218,15 @@ async def draw_rectangle(x1: int, y1: int, x2: int, y2: int) -> dict:
         # sys.stdout.flush()
 
         # # Use relative coordinates within canvas
-        canvas.press_mouse_input(coords=(x1+607, y1+425))
-        time.sleep(0.9)
-        canvas.move_mouse_input(coords=(x2+940, y2+619))
-        time.sleep(0.9)
-        canvas.release_mouse_input(coords=(x2+940, y2+619))
-        time.sleep(0.9)
+        canvas.press_mouse_input(coords=(x1, y1))
+        time.sleep(1.9)
+        canvas.move_mouse_input(coords=(x2, y2))
+        time.sleep(1.9)
+        canvas.release_mouse_input(coords=(x2, y2))
+        time.sleep(1.9)
 
+        # 607, 425, 940, 619
+        # 780|380|1140|700
         # canvas.press_mouse_input(coords=(x1+607, y1+425))
         # canvas.move_mouse_input(coords=(x2+940, y2+619))
         # canvas.release_mouse_input(coords=(x2+940, y2+619))
@@ -282,8 +285,8 @@ async def add_text_in_paint(text: str) -> dict:
             time.sleep(0.5)
         
         # Click on the Rectangle tool
-        paint_window.click_input(coords=(528, 92))
-        time.sleep(0.5)
+        # paint_window.click_input(coords=(528, 92))
+        # time.sleep(0.5)
         
         # Get the canvas area
         canvas = paint_window.child_window(class_name='MSPaintView')
@@ -295,16 +298,17 @@ async def add_text_in_paint(text: str) -> dict:
         time.sleep(0.5)
         
         # Click where to start typing
-        canvas.click_input(coords=(810, 533))
-        time.sleep(0.5)
+        canvas.click_input(coords=(627, 435))
+        time.sleep(1.5)
         
         # Type the text passed from client
         paint_window.type_keys(text)
-        time.sleep(0.5)
+        time.sleep(1.5)
         
         # Click to exit text mode
-        canvas.click_input(coords=(1050, 800))
-        
+        canvas.click_input(coords=(827, 435))
+        time.sleep(1.5)
+
         return {
             "content": [
                 TextContent(
@@ -325,7 +329,7 @@ async def add_text_in_paint(text: str) -> dict:
 
 @mcp.tool()
 async def open_paint() -> dict:
-    """Open Microsoft Paint maximized on secondary monitor"""
+    """Open Microsoft Paint maximized on primary monitor"""
     global paint_app
     try:
         paint_app = Application().start('mspaint.exe')
@@ -355,7 +359,7 @@ async def open_paint() -> dict:
             "content": [
                 TextContent(
                     type="text",
-                    text="Paint opened successfully on secondary monitor and maximized"
+                    text="Paint opened successfully on primary monitor and maximized"
                 )
             ]
         }
@@ -374,7 +378,7 @@ async def open_paint() -> dict:
 @mcp.resource("greeting://{name}")
 def get_greeting(name: str) -> str:
     """Get a personalized greeting"""
-    print("CALLED: get_greeting(name: str) -> str:")
+    mcp_server_logger.info("CALLED: get_greeting(name: str) -> str:")
     return f"Hello, {name}!"
 
 
@@ -382,7 +386,7 @@ def get_greeting(name: str) -> str:
 @mcp.prompt()
 def review_code(code: str) -> str:
     return f"Please review this code:\n\n{code}"
-    print("CALLED: review_code(code: str) -> str:")
+    mcp_server_logger.info("CALLED: review_code(code: str) -> str:")
 
 
 @mcp.prompt()
