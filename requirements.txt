@@ -1,0 +1,7 @@
+mcp==1.12.2
+python-dotenv==1.1.1
+pywinauto==0.6.9
+pywin32==311
+pillow==11.3.0
+google-genai==1.27.0
+asyncio
