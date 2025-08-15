@@ -81,5 +81,5 @@ Method
 
 **Logs**
 
-![Logs](./assets/logs.jpg)
+![Logs](./assets/snap_logs.jpg)
 
