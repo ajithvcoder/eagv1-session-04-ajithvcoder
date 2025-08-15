@@ -2,16 +2,26 @@
 from mcp.server.fastmcp import FastMCP, Image
 from mcp.server.fastmcp.prompts import base
 from mcp.types import TextContent
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from mcp import types
 from PIL import Image as PILImage
 import math
 import sys
+import os
+from dotenv import load_dotenv
 from pywinauto.application import Application
 import win32gui
 import win32con
 import time
 from win32api import GetSystemMetrics
 from logger import mcp_server_logger
+
+load_dotenv()
+
+# Initalize google app password from environment variable
+g_app_password = os.getenv("G_APP_PASS")
 
 # instantiate an MCP server client
 mcp = FastMCP("Calculator")
@@ -373,6 +383,49 @@ async def open_paint() -> dict:
             ]
         }
 # DEFINE RESOURCES
+
+@mcp.tool()
+async def send_email(text: str) -> dict:
+    """Send email with the text content"""
+    try:
+
+        # Gmail account details
+        sender_email = "inocajith21.5@gmail.com"
+        receiver_email = "inocajith21.5@gmail.com"
+
+        # Create email
+        msg = MIMEMultipart()
+        msg["From"] = sender_email
+        msg["To"] = receiver_email
+        msg["Subject"] = "EAG V1 Assignment 4 Result"
+
+        # Body of the email
+        body = f"Hello, this is final answer to your question: {text}"
+        msg.attach(MIMEText(body, "plain"))
+
+        # Send email via Gmail's SMTP server
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(sender_email, g_app_password)
+            server.send_message(msg)
+
+        mcp_server_logger.info(f"Email sent successfully with content {text}")
+        return {
+            "content": [
+                TextContent(
+                    type="text",
+                    text="Email sent successfully!"
+                )
+            ]
+        }
+    except Exception as e:
+        return {
+            "content": [
+                TextContent(
+                    type="text",
+                    text=f"Error opening Paint: {str(e)}"
+                )
+            ]
+        }
 
 # Add a dynamic greeting resource
 @mcp.resource("greeting://{name}")

@@ -16,7 +16,7 @@ load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key)
 
-max_iterations = 6
+max_iterations = 7
 last_response = None 
 iteration = 0
 iteration_response = []
@@ -145,12 +145,13 @@ Examples:
 - FUNCTION_CALL: open_paint
 - FUNCTION_CALL: draw_rectangle|607|425|940|619
 - FUNCTION_CALL: add_text_in_paint|Hello Ajith
+- FUNCTION_CALL: send_email|89.37393e12
 - FINAL_ANSWER: ALL DONE
 
 DO NOT include any explanations or additional text.
 Your entire response should be a single line starting with either FUNCTION_CALL: or FINAL_ANSWER:"""
 
-                query = """Find the ASCII values of characters in INDIA and then return sum of exponentials of those values. After that, Open Microsoft paint, then draw a rectangle with 607, 425, 940, 619 coordinates, then use the final answer to add text in paint."""
+                query = """Find the ASCII values of characters in INDIA and then return sum of exponentials of those values. After that, Open Microsoft paint, then draw a rectangle with 607, 425, 940, 619 coordinates, then use the final answer to add text in paint. At last, send email with the final answer."""
                 # query = """Add two numbers 8 and 9, then multiply the result by 2."""
                 mcp_server_logger.info("Starting iteration loop...")
                 
